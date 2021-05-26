@@ -29,24 +29,44 @@ ORDER BY Users.name"
 end
 
 def selects_the_titles_and_amount_over_goal_of_all_projects_that_have_met_their_funding_goal
-  "SELECT Projects.title,SUM(Pledges.amount)
-   AS 'total'
+  "SELECT Projects.title,(SUM(Pledges.amount) - Projects.funding_goal )
+
    FROM Projects 
    INNER JOIN Pledges
    On Pledges.project_id=Projects.id 
    GROUP BY Projects.id
-   HAVING total >= Projects.funding_goal"
+   HAVING SUM(Pledges.amount) >= Projects.funding_goal"
    
 end
 
 def selects_user_names_and_amounts_of_all_pledges_grouped_by_name_then_orders_them_by_the_summed_amount
-  "Write your SQL query Here"
+  "SELECT Users.name,SUM(Pledges.amount)
+  AS 'total'
+  FROM Pledges
+  INNER JOIN Users
+  On PLedges.user_id=Users.id
+  GROUP BY Users.name
+  ORDER BY total"
+  
 end
 
 def selects_the_category_names_and_pledge_amounts_of_all_pledges_in_the_music_category
-  "Write your SQL query Here"
+  "SELECT Projects.category,SUM(Pledges.amount)
+  FROM Projects
+  INNER JOIN Pledges
+  On PLedges.project_id=projects.id
+  GROUP BY Pledges.id
+  HAVING Projects.category = 'music'"
+
+  
 end
 
 def selects_the_category_name_and_the_sum_total_of_the_all_its_pledges_for_the_books_category
-  "Write your SQL query Here"
+  "SELECT Projects.category,SUM(Pledges.amount)
+  FROM Projects
+  INNER JOIN Pledges
+  On PLedges.project_id=projects.id
+  GROUP BY Projects.category
+  HAVING Projects.category = 'books'"
+  
 end
