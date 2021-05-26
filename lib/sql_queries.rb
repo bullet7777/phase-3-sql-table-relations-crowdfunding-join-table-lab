@@ -8,20 +8,37 @@
 
 def selects_the_titles_of_all_projects_and_their_pledge_amounts_alphabetized_by_title
   
-  "SELECT Projects.title,SUM(Pledges.amount) 
+"SELECT Projects.title, SUM(Pledges.amount) 
   FROM Projects
-  INNER JOIN pledges
+  INNER JOIN Pledges
   ON Pledges.project_id = Projects.id
-  ORDER BY Pledges.project_id "
+  GROUP BY Projects.id
+  ORDER BY Projects.title "
   
 end
 
 def selects_the_user_name_age_and_pledge_amount_for_all_pledges_alphabetized_by_name
-  "Write your SQL query Here"
+ 
+"SELECT Users.name,Users.age,SUM(Pledges.amount)
+FROM Pledges
+INNER JOIN Users
+ON Pledges.user_id =Users.id
+GROUP BY Users.id
+ORDER BY Users.name"
+
 end
 
 def selects_the_titles_and_amount_over_goal_of_all_projects_that_have_met_their_funding_goal
-  "Write your SQL query Here"
+  "SELECT Projects.title,SUM(Pledges.amount)
+   AS 'total'
+   FROM Projects 
+   INNER JOIN Pledges
+   On Pledges.project_id=Projects.id 
+   WHERE 'total' > Projects.funding_goal
+   GROUP BY Projects.id
+   "
+
+ 
 end
 
 def selects_user_names_and_amounts_of_all_pledges_grouped_by_name_then_orders_them_by_the_summed_amount
